@@ -1,15 +1,34 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.20.0)
 project(SDLTemplate VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(SDL3 REQUIRED)
+
 add_executable(${PROJECT_NAME} main.cpp)
 
-include_directories(/opt/homebrew/Cellar/sdl3/3.2.14/include)
-link_directories(/opt/homebrew/Cellar/sdl3/3.2.14/lib)
+message("CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+message("CMAKE_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 
-find_package(SDL3 REQUIRED)
+
+file(
+  COPY "${CMAKE_CURRENT_SOURCE_DIR}/hello.bmp"
+  DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets"
+  FILE_PERMISSIONS
+    OWNER_READ OWNER_WRITE
+    GROUP_READ
+    WORLD_READ
+)
+file(
+  CHMOD "${CMAKE_CURRENT_BINARY_DIR}/assets"
+  PERMISSIONS
+    OWNER_READ OWNER_WRITE OWNER_EXECUTE
+    GROUP_READ GROUP_EXECUTE
+    WORLD_READ WORLD_EXECUTE
+)
+
 
 target_link_libraries( ${PROJECT_NAME} PRIVATE 
     SDL3::SDL3
 )
+

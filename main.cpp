@@ -2,6 +2,8 @@
 #include<string>
 #include<SDL3/SDL.h>
 #include<SDL3/SDL_main.h>
+#include<SDL3/SDL_filesystem.h>
+#include<SDL3/SDL_log.h>
 
 
 
@@ -56,6 +58,11 @@ int main(int, char**){
                 quit = true;
             }
         }
+        SDL_FillSurfaceRect(FISurface, nullptr, SDL_MapSurfaceRGB(FISurface, 0xFF, 0xFF, 0xFF));
+
+        SDL_BlitSurface(FIHelloWorld, nullptr, FISurface, nullptr );
+
+        SDL_UpdateWindowSurface(FIWindow);
     }
 
     return exitCode;
@@ -78,6 +85,7 @@ bool init()
         return success;
     }
 
+    FISurface = SDL_GetWindowSurface(FIWindow);
     success = true;
     return success;
 
@@ -85,11 +93,13 @@ bool init()
 
 bool loadMedia(){
     bool success = false;
-    std::string imagePath{"test-2-vierkant.bmp"};
+    std::string imageLocation = std::string(SDL_GetBasePath()) + "assets/hello.bmp";
 
-    if (FIHelloWorld = SDL_LoadBMP(imagePath.c_str()); FIHelloWorld == nullptr)
+    printf("Working Directory: %s\n", SDL_GetBasePath() );
+
+    if (FIHelloWorld = SDL_LoadBMP(imageLocation.c_str()); FIHelloWorld == nullptr)
     {
-        SDL_Log("Unable to load image");
+        SDL_Log("Unable to load image: %s\n", SDL_GetError());
         return success;
     }
 
