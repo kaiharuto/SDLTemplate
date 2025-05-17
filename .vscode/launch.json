@@ -1,18 +1,16 @@
 {
+  "version": "2.0.0",
   "configurations": [
     {
-      "name": "C/C++: clang++ build and debug active file",
+      "name": "Launch SDLTemplate",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "program": "${workspaceFolder}/out/build/MacClang/SDLTemplate",
       "args": [],
-      "stopAtEntry": false,
-      "cwd": "${fileDirname}",
-      "environment": [],
-      "externalConsole": false,
+      "cwd": "${workspaceFolder}/out/build/MacClang",
+      "preLaunchTask": "Build SDLTemplate",
       "MIMode": "lldb",
-      "preLaunchTask": "C/C++: clang++ build active file"
+      "externalConsole": false
     }
-  ],
-  "version": "2.0.0"
+  ]
 }

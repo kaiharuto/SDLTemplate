@@ -58,6 +58,7 @@ int main(int, char**){
                 quit = true;
             }
         }
+        
         SDL_FillSurfaceRect(FISurface, nullptr, SDL_MapSurfaceRGB(FISurface, 0xFF, 0xFF, 0xFF));
 
         SDL_BlitSurface(FIHelloWorld, nullptr, FISurface, nullptr );
