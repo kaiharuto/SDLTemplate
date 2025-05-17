@@ -1,0 +1,105 @@
+
+#include<string>
+#include<SDL3/SDL.h>
+#include<SDL3/SDL_main.h>
+
+// int main(){
+
+//         printf("Hello World!");
+
+// }
+
+
+
+
+// use SDL App Callbacks :
+// https://wiki.libsdl.org/SDL3/SDL_MAIN_USE_CALLBACKS
+// based on lazyfoo --> see examples in repo for more sophisticated setups
+// #define SDL_MAIN_USE_CALLBACKS 1
+
+bool init();
+bool loadMedia();
+void close();
+
+// alternative --> bundle SDL App components to struct
+// typedef struct
+// {
+//     SDL_Window* FIWindow;
+//     SDL_Renderer* FIRenderer;
+//     Uint64 last_step;
+// } AppState;
+
+// then initialize to nullptr using     AppState* state = (AppState*)SDL_calloc(1, sizeof(AppState));
+
+SDL_Surface* FISurface{nullptr};
+SDL_Surface* FIHelloWorld{nullptr};
+SDL_Window* FIWindow{nullptr};
+SDL_Renderer* FIRenderer{nullptr};
+int64_t last_step;
+
+
+
+int main(int, char**){
+    int exitCode = 0;
+    if(!init()){
+        SDL_Log("Could not initialize program!\n");
+        exitCode = 1;
+    }
+    else{
+        if (!loadMedia()){
+            SDL_Log("Unable to load image!\n");
+            exitCode = 2;
+        }
+    }
+
+    return exitCode;
+}
+
+bool init()
+{
+    bool success = false;
+    
+    // initialize SDL
+    if( !SDL_Init( SDL_INIT_VIDEO )){
+        SDL_Log("Could not initialize %s\n", SDL_GetError());
+        return success;
+    }
+
+
+
+    if(FIWindow = SDL_CreateWindow("Template",1600,600,SDL_WINDOW_RESIZABLE); FIWindow == nullptr){
+        SDL_Log("Window could not be created: %s\n", SDL_GetError());
+        return success;
+    }
+
+    success = true;
+    return success;
+
+}
+
+bool loadMedia(){
+    bool success = false;
+    std::string imagePath{"test-2-vierkant.bmp"};
+
+    if (FIHelloWorld = SDL_LoadBMP(imagePath.c_str()); FIHelloWorld == nullptr)
+    {
+        SDL_Log("Unable to load image");
+        return success;
+    }
+
+    success = true;
+    return success;
+
+}
+
+void close(){
+    // clean surface
+    SDL_DestroySurface(FIHelloWorld);
+    FIHelloWorld = nullptr;
+
+    // destroy window
+    SDL_DestroyWindow(FIWindow);
+
+    // quit SDL Subsystems
+    SDL_Quit();
+}
