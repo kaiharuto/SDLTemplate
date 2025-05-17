@@ -3,13 +3,6 @@
 #include<SDL3/SDL.h>
 #include<SDL3/SDL_main.h>
 
-// int main(){
-
-//         printf("Hello World!");
-
-// }
-
-
 
 
 // use SDL App Callbacks :
@@ -49,6 +42,19 @@ int main(int, char**){
         if (!loadMedia()){
             SDL_Log("Unable to load image!\n");
             exitCode = 2;
+        }
+    }
+
+    bool quit = false;
+
+    SDL_Event event;
+    SDL_zero(event);
+
+    while(!quit){
+        while(SDL_PollEvent(&event)){
+            if(event.type == SDL_EVENT_QUIT){
+                quit = true;
+            }
         }
     }
 
@@ -102,4 +108,5 @@ void close(){
 
     // quit SDL Subsystems
     SDL_Quit();
+
 }
